@@ -367,7 +367,7 @@ export default function AdminSettingsPage() {
               <input
                 type="text"
                 value={linkedinUrl}
-                onChange={(e) => setLinkedInUrl(e.target.value)}
+                onChange={(e) => setLinkedinUrl(e.target.value)}
                 className="bg-luxury-charcoal border border-gold-500/10 focus:border-gold-500 rounded px-3 py-2 text-xs text-gray-300 focus:outline-none transition-colors"
               />
             </div>
