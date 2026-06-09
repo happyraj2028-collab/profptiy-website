@@ -1,0 +1,92 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { api } from '@/lib/api';
+import { Mail, HelpCircle, ArrowLeft, Check, AlertCircle } from 'lucide-react';
+
+export default function ForgotPasswordPage() {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
+    setErrorMsg('');
+
+    try {
+      const data = await api.auth.forgotPassword(email);
+      setMessage(data.message || 'If registered, a password reset link has been dispatched to your inbox.');
+      setEmail('');
+    } catch (err: any) {
+      setErrorMsg(err.message || 'An error occurred during password recovery.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-luxury-obsidian min-h-screen text-gray-200 flex items-center justify-center px-6 py-24">
+      <div className="max-w-md w-full glassmorphism p-8 rounded-2xl shadow-2xl relative">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold-400 to-gold-600"></div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="w-12 h-12 rounded-full bg-gold-500/10 flex items-center justify-center mx-auto mb-4 border border-gold-500/20">
+            <HelpCircle className="w-6 h-6 text-gold-500" />
+          </div>
+          <h1 className="text-2xl font-serif text-white font-semibold">Recover Password</h1>
+          <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Management Recovery</p>
+        </div>
+
+        {message && (
+          <div className="bg-green-500/10 border border-green-500/20 text-green-400 text-xs p-3 rounded-lg flex items-center gap-2 mb-6">
+            <Check className="w-4 h-4 shrink-0" />
+            <span>{message}</span>
+          </div>
+        )}
+
+        {errorMsg && (
+          <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs p-3 rounded-lg flex items-center gap-2 mb-6">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{errorMsg}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex flex-col space-y-1">
+            <label className="text-[10px] uppercase text-gray-400 font-semibold">Email Address</label>
+            <div className="relative">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@profptiy.com"
+                className="w-full bg-luxury-charcoal border border-gold-500/10 focus:border-gold-500 rounded px-3 py-2.5 pl-9 text-xs text-gray-300 focus:outline-none transition-colors"
+              />
+              <Mail className="w-4 h-4 text-gray-600 absolute left-3 top-3" />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-gold w-full py-3 rounded text-xs uppercase tracking-wider font-semibold mt-4"
+          >
+            {loading ? 'Dispatched Request...' : 'Send Recovery Link'}
+          </button>
+        </form>
+
+        <div className="text-center mt-6 text-xs text-gray-500">
+          <Link href="/admin/login" className="hover:text-gold-500 transition-colors flex items-center justify-center gap-1.5">
+            <ArrowLeft className="w-3.5 h-3.5" /> Back to sign in
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

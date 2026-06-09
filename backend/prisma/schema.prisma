@@ -1,0 +1,102 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               String    @id @default(uuid())
+  name             String
+  email            String    @unique
+  password         String
+  role             String    @default("AGENT") // ADMIN or AGENT
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Property {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Float
+  type        String   // Villa, Apartment, Penthouse, Mansion, Townhouse
+  status      String   // For Sale, For Rent, Sold
+  city        String
+  area        String
+  address     String
+  bedrooms    Int
+  bathrooms   Int
+  sqft        Int
+  featured    Boolean  @default(false)
+  images      String   // Store as comma-separated URLs
+  videoUrl    String?
+  latitude    Float?
+  longitude   Float?
+  amenities   String   // Store as comma-separated tags
+  nearby      String?  // Store as serialized JSON string
+  agentName   String
+  agentEmail  String
+  agentPhone  String
+  agentImage  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Inquiry {
+  id            String   @id @default(uuid())
+  propertyId    String?
+  propertyTitle String?
+  name          String
+  email         String
+  phone         String
+  message       String
+  status        String   @default("New") // New, Contacted, Resolved
+  createdAt     DateTime @default(now())
+}
+
+model Blog {
+  id         String   @id @default(uuid())
+  title      String
+  content    String
+  excerpt    String
+  image      String
+  slug       String   @unique
+  tags       String   // Store as comma-separated tags
+  authorName String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  name      String
+  role      String
+  company   String
+  content   String
+  rating    Int      @default(5)
+  avatar    String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  type      String   // LEAD, SYSTEM
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

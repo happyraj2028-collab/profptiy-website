@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 24, 24, 27;
+  --background-start-rgb: 250, 249, 246;
+  --background-end-rgb: 247, 245, 240;
+}
+
+/* Global transitions and scroll styling */
+html {
+  scroll-behavior: smooth;
+  background-color: #0d0d0f; /* Force dark luxury background base */
+  color: #f3f4f6;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #0a0a0b;
+  color: #f3f4f6;
+  min-height: 100vh;
+}
+
+/* Custom Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+.luxury-title {
+  font-family: 'Playfair Display', serif;
+  background: linear-gradient(135deg, #f5efe6 0%, #c5a880 50%, #a3855e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.luxury-text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #e6d7c3 50%, #c5a880 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Effects */
+.glassmorphism {
+  background: rgba(18, 18, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+.glassmorphism-light {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: rgba(20, 20, 22, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(197, 168, 128, 0.12);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(197, 168, 128, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(197, 168, 128, 0.05);
+}
+
+/* Premium Gold Glow button and accents */
+.btn-gold {
+  position: relative;
+  background: linear-gradient(135deg, #c5a880 0%, #a3855e 100%);
+  color: #0a0a0b;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(197, 168, 128, 0.2);
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.btn-gold:hover::before {
+  left: 100%;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(197, 168, 128, 0.4);
+}
+
+.btn-outline-gold {
+  background: transparent;
+  color: #c5a880;
+  border: 1px solid #c5a880;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+  background: rgba(197, 168, 128, 0.08);
+  border-color: #f5efe6;
+  color: #f5efe6;
+  transform: translateY(-2px);
+}
+
+/* Custom Scrollbar for Luxury Aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e1e24;
+  border: 2px solid #0a0a0b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c5a880;
+}
+
+/* Stats counter card glow */
+.stat-glow {
+  text-shadow: 0 0 10px rgba(197, 168, 128, 0.3);
+}
+
+/* Hide Google Map focus border */
+iframe {
+  border: none;
+}
